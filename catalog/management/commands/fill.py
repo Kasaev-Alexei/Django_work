@@ -17,6 +17,9 @@ class Command(BaseCommand):
                 )
             )
 
+        Category.objects.all().delete()
+        Product.objects.all().delete()
+
         Category.objects.bulk_create(category_list)
 
         category_id_list = list(Category.objects.all().values_list('id', flat=True))
