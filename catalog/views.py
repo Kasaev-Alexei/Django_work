@@ -4,7 +4,7 @@ from catalog.models import Product
 
 
 def index(request):
-    return render(request, 'catalog/index.html')
+    return render(request, 'catalog/product_list.html')
 
 
 def contacts(request):
