@@ -1,28 +1,35 @@
 from django.shortcuts import render
+from django.views import View
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
 
-def index(request):
-    return render(request, 'catalog/product_list.html')
+class ProductListView(ListView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
 
 
-def contacts(request):
-    if request.method == 'POST':
+class ProductView(View):
+    def get(self, request):
+        return render(request, 'catalog/contacts.html')
+
+    def post(self, request):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(f'Name: {name}, Phone: {phone}, Message: {message}')
-    return render(request, 'catalog/contacts.html')
+        return render(request, 'catalog/contacts.html')
 
 
-def product_detail(request, pk):
-    context = {'object': Product.objects.get(pk=pk)}
+class ProductDetailView(DetailView):
+    model = Product
 
-    return render(request, 'catalog/product_detail.html', context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-
-def product_list(request):
-    context_data = {'object_list': Product.objects.all()}
-
-    return render(request, 'catalog/product_list.html', context=context_data)
+        return context

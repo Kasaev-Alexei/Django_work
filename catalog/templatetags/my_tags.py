@@ -7,4 +7,4 @@ register = template.Library()
 def show_img(img_url):
     if img_url:
         return f'/media/{img_url}'
-    return "#"
+    return "f'/media/empty_pic.jpg'"
